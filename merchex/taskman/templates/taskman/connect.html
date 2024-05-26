@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Formulaire</title>
+  
+  </head>
+  <body>
+      {% extends 'accounts/base.html' %}
+  
+          {% block content %}
+  
+          <div class="container">
+  
+         <div class="col-12 offset-md-3 col-md-6  ">
+            <h1>Connectez vous</h1>
+  
+              <!--    *****FORMULAIRES*****   -->
+  
+              <form  class="row" action="" method="post" novalidate  >  
+                {% csrf_token %}
+                  <div class="col-6 my-3">
+                    <label for="firstname" class="form-label">Username</label>
+                    <input type="firstname" class="form-control" id="exampleInputEmail1" aria-describedby="textHelp">
+                  </div>
+
+    
+                  <div class="col-12 my-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email">
+                  </div>
+    
+                  <div class="col-12 my-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea name="message" class="form-control" id="message" rows="3"></textarea> 
+                  </div>
+                 <div class="col-12 my-3">
+                  <button type="submit" class="btn btn-primary w-100">Envoyer</button>
+                 </div>
+                </form>
+    
+              </div>
+          </div>
+  
+  {% endblock %}
+  
+  
+  </body> 
+  
+  </html>

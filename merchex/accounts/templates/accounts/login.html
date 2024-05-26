@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulaire</title>
+  </head>
+  <body>
+    {% extends 'taskman/base.html' %}
+    {% load crispy_forms_tags %}
+
+    {% block content %}
+      <div class="container">
+        <div class="col-6 offset-md-3 col-md-6 shadow p-3 mb-5 rouded br3 bc9 bsd0 degrade">
+          <h1>Se connecter</h1>
+          {% for message in messages %}
+            <p class="error">{{ message }}</p>
+          {% endfor %}
+
+          <div class="col-6 offset-md-3 col-md-6 my-4">
+            <form class="row" action="" method="post" novalidate>
+              {% csrf_token %}
+
+              <div class="form-group">{{ form.username|as_crispy_field }}</div>
+
+              <div class="form-group">{{ form.password|as_crispy_field }}</div>
+
+              <input type="submit" class="btn btn-primary" value="Login" />
+              <p class="fw-bold fs-2 pt">
+                Vous n'avez pas encore de compte ? <a href="{% url 'accounts:register' %}">S'Inscrire</a>
+              </p>
+            </form>
+            <div class="row-12">{{ error_messages }}</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        $(document).ready(function () {
+          // Sélectionnez le champ mot de passe par son ID ou sa classe
+          $('#lll').focus(function () {
+            // Vérifiez si la valeur actuelle est la valeur par défaut
+            if ($(this).val() == 'Mot de passe') {
+              // Effacez la valeur par défaut
+              $(this).val('')
+            }
+          })
+        })
+      </script>
+    {% endblock %}
+  </body>
+</html>

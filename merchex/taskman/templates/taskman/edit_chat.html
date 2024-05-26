@@ -1,0 +1,17 @@
+<form id="edit-form-{}" method="POST">
+                      {% csrf_token %}  
+        <div id="chat-{{chat.id}}">
+            <div>
+            <textarea rows="3" id="edit-content-{}" name ="content">{{chat.content}} </textarea>
+            </div>
+            <div>
+                <textarea rows="3" id="edit-comment-{}" name ="comment">{{chat.comment}}</textarea>
+                </div>
+        </div>
+        <button 
+            hx-post="{% url 'update_chat' chat.id%}"
+            hx-swap="outerHTML"
+            hx-target="#panel"
+            hx-select="#panel"
+        type="submit"  class="btn btn-success">Register</button>
+      </form>

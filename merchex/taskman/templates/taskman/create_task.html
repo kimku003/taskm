@@ -1,0 +1,34 @@
+<form id="lll">
+  {% csrf_token %}
+  <div id="new">
+    <div class="row">
+      <div class="col">
+        <textarea class="form-control" id="task-input" rows="3" placeholder="Type your task name here..." name="content"></textarea>
+      </div>
+
+      <div class="col">
+        <textarea class="form-control" id="task-input" rows="3" placeholder="Type your task comment here..." name="comment"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="progress">Progress:</label>
+      <select id="progress" name="progress">
+        <option value="none">None</option>
+        <option value="in_progress">In Progress</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty" name="difficulty">
+      <option value="low">Low</option>
+      <option value="moderate">Moderate</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+
+  <button method="POST" hx-post="{% url 'create_task' %}" hx-swap="outerHTML" hx-target="#panel" hx-select="#panel" type="submit" class="btn btn-primary">Add</button>
+</form>

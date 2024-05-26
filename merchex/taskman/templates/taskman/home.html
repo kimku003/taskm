@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>...</title>
+  </head>
+  <body>
+    {% extends 'taskman/base.html' %}
+
+    {% block content %}
+      <header>
+        <div class="container">
+          <div class="bg-gradient">
+            <h1 class="col-x* col-sm* col-md* col-lg* text-center">BIENVENUE SUR VOTRE GESTIONNAIRE DE TÂCHE</h1>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <h1 class="text-danger text-center"></h1>
+        </div>
+
+        <div class="container col-8 fw-bold fs-5 pt text-center">
+          <h1 class="text-danger">Qu'es ce qu'un gestionnaîre de tâches?</h1>
+
+          <p class="col tc5 pt">
+            Un système de gestion de tâche est un <strong class="fst-italic">outil qui permet de planifier, de suivre et coordonner les activités d'une équipe ou d'un projet</strong>. Il se compose généralement d'une interface en ligne où les utilisateurs peuvent créer et assigner des tâches, suivre l'avancement des travaux et collaborer avec leurs collègues.
+          </p>
+        </div>
+      </main>
+      <footer>
+        <script src="/static/taskman/bootstrap5last/Bootstrap5.3/bootstrap-5.3.0-dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+          var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+          var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+          })
+        </script>
+      </footer>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,144 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>
+      {% block title %}
+        Kim - Task manager
+      {% endblock %}
+    </title>
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'taskman/bootstrap5last/Bootstrap5.3/bootstrap-5.3.0-dist/css/bootstrap.min.css' %}" />
+    <!-- Intégration de fontawesome -->
+
+    <link rel="stylesheet" href="{% static 'fontawesome/fontawesome-free-6.5.1-web/css/all.css' %}" />
+
+    <link rel="shortcut icon" href="#" />
+
+    <link rel="stylesheet" href="{% static 'taskman/style.css' %}" />
+
+    <!-- Intégration de htmx -->
+    <script src="{% static '/taskman/bootstrap5last/Bootstrap5.3/bootstrap-5.3.0-dist/js/htmx.min.js' %}"></script>
+  </head>
+
+  <body class="bg-image">
+    <script src="{% static 'fontawesome/fontawesome-free-6.5.1-web/js/all.js' %}"></script>
+
+    <header class="py-5">
+      <nav class="navbar navbar-expand-lg fixed-top navbar-custom">
+        <div class="container">
+          <a class="navbar-brand text-uppercase" href="{% url 'home' %} "><span class="bg-primary bg-gradient p-1 rounded-3 text-light">Task'</span>Man</a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav navbar-items">
+              {% if user.is_authenticated %}
+                <p class="text-light">
+                  Connecté sous {{ user.username }} | <a href="{% url 'accounts:logout' %}">Déconnexion</a>
+                </p>
+              {% else %}
+                <a class="nav-link" href="{% url 'accounts:login' %}">Connexion</a>
+
+                <a class="nav-link" href="{% url 'accounts:register' %}">Inscription</a>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'task' %}">Tâches</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'chat' %}">chat</a>
+              </li>
+
+              <!-- Ajoutez d'autres liens de navigation ici -->
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container mt-6">
+        <div class="card bg-image bc1">
+          <div class="text-white card-header">Tasks</div>
+          <div class="container mt-6 mb-3 nst">
+            <div class="row text-white fw-bold fs-5 mt-6 bg-image bc1">
+              <div class="col-3">Tasks names</div>
+              <div class="col-3">Tasks progress</div>
+              <div class="col-3">Tasks difficulty</div>
+              <div class="col-3">Tasks change</div>
+            </div>
+          </div>
+          <div class="card-body p" id="panel">
+            <div id="task-messages">
+              {% for task in tasks %}
+                <div class="bcg1 alert alert-primary text-center d-flex justify-content-between" id="task-{{ task.id }}" role="alert">
+                  <!-- <button class="col-2 btn btn-dark" hx-trigger="click" hx-get="{% url 'detail_task' task.id %}" hx-swap="outerHTML" hx-target="#task-{{ task.id }}" type=""><h3>{{ task.content }}</h3></button> -->
+
+                  <a class="col-xs-12 col-sm-3 col-md-4 col-lg-3 btn border bg-white text-center br1" rows="3" href="{% url 'detail_task' task.id %}"><h3>{{ task.content }}</h3></a>
+
+                  <!-- Progress bar to observe progression of the task -->
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 tc7 bsg bc6 degrade5 fw-bold fs-5 text-center br1">
+                    <label for="progression"></label>
+
+                    <h5>{{ task.progress }}</h5>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-3 col-md-3 tc7 bsg bc6 col-lg-3 degrade6 fw-bold fs-2 br2">
+                    <label for="levels"></label>
+
+                    <h5>{{ task.difficulty }}</h5>
+                  </div>
+
+                  <div id="new_task"></div>
+
+                  <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                    <button class="btn btn-warning" hx-trigger="click" hx-get="{% url 'edit_task' task.id %}" hx-swap="outerHTML" hx-target="#task-{{ task.id }}"><i class="fas fa-pencil fa-1x"></i>edit</button>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-1 col-md-1 col-lg-">
+                    <button class="btn btn-danger" type="button" hx-get="{% url 'delete_task' task.id %}" hx-target="#task-{{ task.id }}" hx-swap="outerHTML">Delete</button>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <button hx-get="{% url 'create_task' %}" hx-trigger="click" hx-swap="outerHTML" class="btn cbr text-decoration-none text-white" title="create task"><h5>Add task</h5><i class="fas fa-square-plus fa-3x"></i></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="pd pr">
+      <div class="container col-1">
+        <div class="col-5 col-md-4 text-md-end">
+          <ul class="list-inline mb-0">
+            <li class="row list-inline-item">
+              <a href="#" class="text-decoration-none" data-bs-toggle="tooltip" title="Linkedin"><i class="fab fa-linkedin fa-3x"></i></a>
+            </li>
+
+            <li class="row list-inline-item mt-2">
+              <a href="#" class="text-decoration-none" data-bs-toggle="tooltip" title="Facebook"><i class="fab fa-facebook-square fa-3x"></i></a>
+            </li>
+
+            <li class="row list-inline-item mt-2">
+              <a href="#" class="text-decoration-none" data-bs-toggle="tooltip" title="Whatsapp"><i class="fab fa-whatsapp-square fa-3x"></i></a>
+            </li>
+
+            <li class="row list-inline-item mt-2">
+              <a href="#" class="text-decoration-none" data-bs-toggle="tooltip" title="Instagram"><i class="fab fa-instagram fa-3x"></i></a>
+            </li>
+
+            <li class="row list-inline-item mt-2">
+              <a href="#" class="text-decoration-none" data-bs-toggle="tooltip" title="home"><i class="fas fa-cross fa-3x"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'taskman/bootstrap5last/Bootstrap5.3/bootstrap-5.3.0-dist/js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

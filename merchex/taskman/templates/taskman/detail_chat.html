@@ -1,0 +1,12 @@
+{% extends 'taskman/base.html' %}
+
+{% block content %}
+  <div id="divparent" class="col-12 offset-md-3 col-md-6 text-white text-align-center">
+    <h2>{{ chat.content }}</h2>
+    <div>
+      <p>{{ chat.comment }}</p>
+    </div>
+
+    <a href="{% url 'chat' %}">Retourner à la liste des chats</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'taskman/base.html' %}
+
+{% block content %}
+  <div id="panel">
+    <div id="divparent" class="col-12 offset-md-3 col-md-6 text-white text-align-center">
+      <h1><strong>{{ task.content }}</strong></h1>
+      <div>
+        <p class="fw- fs-5">{{ task.comment }}</p>
+      </div>
+      <div>
+        <a class="link-underline-light link-info" href="{% url 'task' %}"><h3>Retourner à la liste des tâches</h3></a>
+      </div>
+
+      <div class="row mt text-center">
+        <div class="col-6 col-w-100">
+          <button class="btn btn-warning" hx-trigger="click" hx-get="{% url 'edit_taskk' task.id %}" hx-swap="outerHTML"><i class="fas fa-pencil fa-1x"></i>edit</button>
+        </div>
+
+        <div class="col-6 col-w-100">
+          <button class="btn btn-danger col-w-100" type="button" hx-get="{% url 'delete_task' task.id %}" hx-target="#task-{{ task.id }}" hx-swap="outerHTML">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

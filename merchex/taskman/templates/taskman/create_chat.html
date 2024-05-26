@@ -1,0 +1,15 @@
+<form id="lll">
+  {% csrf_token %}
+  <div id="new">
+    <div class="row">
+      <div class="col">
+        <textarea class="form-control" id="chat-input" rows="3" placeholder="Type your chat name here..." name="content"></textarea>
+      </div>
+      <div class="col">
+        <textarea class="form-control" id="chat-input" rows="3" placeholder="Type your chat comment here..." name="comment"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <button method="POST" hx-post="{% url 'create_chat' %}" hx-swap="outerHTML" hx-target="#panel" hx-select="#panel" type="submit" class="btn btn-primary">Add</button>
+</form>
